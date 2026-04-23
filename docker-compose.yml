@@ -4,9 +4,10 @@ services:
     container_name: weather_postgres
     env_file: .env
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "5433:5432"  # host:container - host 5433 to avoid conflict with local PostgreSQL on 5432
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
 
   pgadmin:
